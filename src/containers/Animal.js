@@ -8,8 +8,10 @@ import { Cat } from './Cat';
         this.name = "Tiger"
     }
 
+    //State of the component
     state = {
-        catName: "ABC"
+        catName: "ABC",
+        showCat: true
     }
 
     updateCathandler = () => {
@@ -18,24 +20,29 @@ import { Cat } from './Cat';
         })
     }
 
+    showHideCathandler = () => {
+        this.setState({
+            showCat: !this.state.showCat
+        })
+    }
+
+    //(Mounting Phase): this method is only called once in a life of a component, and this is right before it is initially.
     componentWillMount() {
         console.log("Component will mount...");
     }
 
+    //(Mounting Phase): Whenever this method is called, React has already rendered our component and put it into the DOM.
     componentDidMount() {
         console.log("Component did mount...");
     }
-    shouldComponentUpdate() {
-         return true;;
-    }
     render() {
-        console.log("Component rendering...");
+        console.log("Component rendering / re-rendering...");
         return (
-            <div>
-                <Cat catname={this.state.catName} />
+            <div style={{marginTop: '15px'}}>
                 <button onClick={this.updateCathandler}>Update Cat</button>
+                <button style={{marginLeft: '5px'}} onClick={this.showHideCathandler}>Show/Hide Cat</button>
+                {this.state.showCat ? <Cat catname={this.state.catName} /> : null}
             </div>
         )
     }
 }
-
